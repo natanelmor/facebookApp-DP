@@ -29,7 +29,7 @@ namespace FacebookApplication
 
             try
             {
-                using (Stream stream = new FileStream(@"C:\temp\FacebookSettings.xml", FileMode.Open))
+                using (Stream stream = new FileStream(@".\FacebookSettings.xml", FileMode.Open))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(Settings));
 
@@ -46,7 +46,7 @@ namespace FacebookApplication
 
         public void SaveToFile()
         {
-            if (File.Exists(@"C:\temp\FacebookSettings.xml"))
+            if (File.Exists(@".\FacebookSettings.xml"))
             {
                 createXMLFile(FileMode.Truncate);
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Text;
+using System.Threading;
 using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
@@ -17,12 +18,21 @@ namespace FacebookApplication
     {
         private User m_FacebookUser;
         private Settings m_Settings;
+        private SubFormPostPreview m_SubFormPostPreview;
+        private Thread m_PostPreviewThread;
+        private SubFormPhotoPreview m_SubFormPhotoPreview;
+        private Thread m_PhotoPreviewThread;
+        private SubFormPhotoUpload m_SubFormPhotoUpload;
+        private Thread m_PhotoUploadThread;
 
         private Dictionary<User, int> m_TopLikedFriends;
 
         public MainForm()
         {
             InitializeComponent();
+            m_SubFormPhotoPreview = SubFormFactory.CreateForm(SubFormFactory.eSubFormTypes.PhotoPreview) as SubFormPhotoPreview;
+            m_SubFormPostPreview = SubFormFactory.CreateForm(SubFormFactory.eSubFormTypes.PostPreview) as SubFormPostPreview;
+            m_SubFormPhotoUpload = SubFormFactory.CreateForm(SubFormFactory.eSubFormTypes.PhotoUpload) as SubFormPhotoUpload;
         }
 
         private void mainForm_Shown(object sender, EventArgs e)
@@ -130,7 +140,7 @@ namespace FacebookApplication
             buttonCreateAlbum.Enabled = i_IsButtonEnabled;
             buttonDeletePost.Enabled = i_IsButtonEnabled;
             buttonUploadPhoto.Enabled = i_IsButtonEnabled;
-
+            buttonPostShowMoreDetails.Enabled = i_IsButtonEnabled;
             buttonShowMyPlaces.Enabled = i_IsButtonEnabled;
             buttonClearMyPlaces.Enabled = i_IsButtonEnabled;
             buttonShowMyPlaces.Enabled = i_IsButtonEnabled;
@@ -174,20 +184,13 @@ namespace FacebookApplication
         {
             m_FacebookUser.ReFetch();
             listBoxMyPosts.Items.Clear();
+            listBoxMyPosts.DisplayMember = "Message";
 
             foreach (Post post in m_FacebookUser.Posts)
             {
                 if (post.Message != null)
                 {
-                    listBoxMyPosts.Items.Add(string.Format(
-                        "Date: {0}        By: {1}        Post: {2}",
-                        post.UpdateTime,
-                        post.From == null ? m_FacebookUser.Name : post.From.Name,
-                        post.Message));
-                }
-                else
-                {
-                    listBoxMyPosts.Items.Add(string.Format("[{0}]", post.Type));
+                    listBoxMyPosts.Items.Add(post);
                 }
             }
 
@@ -509,7 +512,10 @@ namespace FacebookApplication
 
         private void buttonUploadPhoto_Click(object sender, EventArgs e)
         {
-            uploadPhoto();
+            if (listBoxAlbums.SelectedItem != null)
+            {
+                startPhotoUploadFormThread(listBoxAlbums.SelectedItem as Album);
+            }
         }
 
         private void buttonRefreshFriends_Click(object sender, EventArgs e)
@@ -664,6 +670,80 @@ namespace FacebookApplication
                 i_Photos.InsertRange(index, photoToAdd);
             }
 
+        }
+
+        private void startPostPreviewFormThread(Post i_PostToPreview)
+        {
+            if (m_PostPreviewThread == null || !m_PostPreviewThread.IsAlive)
+            {
+                m_PostPreviewThread = new Thread(new ParameterizedThreadStart(showSubFormPostPreview));
+                m_PostPreviewThread.Start(i_PostToPreview);
+            }
+            else
+            {
+                m_SubFormPostPreview.InitializeSubForm(i_PostToPreview);
+            }
+        }
+
+        private void showSubFormPostPreview(object i_PostToPreview)
+        {
+            m_SubFormPostPreview.InitializeSubForm(i_PostToPreview as Post);
+            m_SubFormPostPreview.ShowDialog();
+        }
+
+
+        private void startPhotoPreviewFormThread(Photo i_PhotoToPreview)
+        {
+            if (m_PhotoPreviewThread == null || !m_PhotoPreviewThread.IsAlive)
+            {
+                m_PhotoPreviewThread = new Thread(new ParameterizedThreadStart(showSubFormPhotoPreview));
+                m_PhotoPreviewThread.Start(i_PhotoToPreview);
+            }
+            else
+            {
+                m_SubFormPhotoPreview.InitializeSubForm(i_PhotoToPreview);
+            }
+        }
+
+        private void showSubFormPhotoPreview(object i_PhotoToPreview)
+        {
+            m_SubFormPhotoPreview.InitializeSubForm(i_PhotoToPreview as Photo);
+            m_SubFormPhotoPreview.ShowDialog();
+        }
+
+        private void startPhotoUploadFormThread(Album i_AlbumToUpload)
+        {
+            if (m_PhotoUploadThread == null || !m_PhotoUploadThread.IsAlive)
+            {
+                m_PhotoUploadThread = new Thread(new ParameterizedThreadStart(showSubFormPhotoUpload));
+                m_PhotoUploadThread.Start(i_AlbumToUpload);
+            }
+            else
+            {
+                m_SubFormPhotoUpload.Album = i_AlbumToUpload;
+            }
+        }
+
+        private void showSubFormPhotoUpload(object i_AlbumToUpload)
+        {
+            m_SubFormPhotoUpload.Album = i_AlbumToUpload as Album;
+            m_SubFormPhotoUpload.ShowDialog();
+        }
+
+        private void buttonPostShowMoreDetails_Click(object sender, EventArgs e)
+        {
+            if (listBoxMyPosts.SelectedItem != null)
+            {
+                startPostPreviewFormThread(listBoxMyPosts.SelectedItem as Post);
+            }
+        }
+
+        private void pictureBoxPhoto_Click(object sender, EventArgs e)
+        {
+            if (listBoxPhoto.SelectedItem != null)
+            {
+                startPhotoPreviewFormThread(listBoxPhoto.SelectedItem as Photo);
+            }
         }
     }
 }

@@ -120,13 +120,42 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="SubFormFactory.cs" />
+    <Compile Include="SubFormPhotoPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubFormPhotoPreview.Designer.cs">
+      <DependentUpon>SubFormPhotoPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubFormPhotoUpload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubFormPhotoUpload.Designer.cs">
+      <DependentUpon>SubFormPhotoUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubFormPostPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubFormPostPreview.Designer.cs">
+      <DependentUpon>SubFormPostPreview.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubFormPhotoPreview.resx">
+      <DependentUpon>SubFormPhotoPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubFormPhotoUpload.resx">
+      <DependentUpon>SubFormPhotoUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubFormPostPreview.resx">
+      <DependentUpon>SubFormPostPreview.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -143,6 +172,9 @@
   <ItemGroup>
     <None Include="Resources\button_bg.PNG" />
     <Content Include="C19 Ex01 EliorPaz 308165539 NatanelMor 205788946.txt" />
+    <Content Include="pictureBoxFacebookLogo.Image.png" />
+    <None Include="Resources\%24this.Icon.ico" />
+    <None Include="Resources\%24this.Icon1.ico" />
     <Content Include="Resources\calender.png" />
     <Content Include="Resources\connected-friends.png" />
     <Content Include="Resources\Facebook.png" />

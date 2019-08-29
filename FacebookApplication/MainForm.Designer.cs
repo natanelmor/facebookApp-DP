@@ -117,6 +117,7 @@
             this.labelFirstName = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBoxProfilePic = new System.Windows.Forms.PictureBox();
+            this.buttonPostShowMoreDetails = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFacebookLogo)).BeginInit();
             this.panel2.SuspendLayout();
@@ -245,6 +246,7 @@
             // tabPosts
             // 
             this.tabPosts.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPosts.Controls.Add(this.buttonPostShowMoreDetails);
             this.tabPosts.Controls.Add(this.buttonDeletePost);
             this.tabPosts.Controls.Add(this.buttonShareMyPost);
             this.tabPosts.Controls.Add(this.textBoxPost);
@@ -257,6 +259,21 @@
             this.tabPosts.Size = new System.Drawing.Size(682, 335);
             this.tabPosts.TabIndex = 1;
             this.tabPosts.Text = "Posts";
+            // 
+            // buttonPostShowMoreDetails
+            // 
+            this.buttonPostShowMoreDetails.BackgroundImage = global::FacebookApplication.Properties.Resources.button_bg;
+            this.buttonPostShowMoreDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonPostShowMoreDetails.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonPostShowMoreDetails.Enabled = false;
+            this.buttonPostShowMoreDetails.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonPostShowMoreDetails.Location = new System.Drawing.Point(417, 285);
+            this.buttonPostShowMoreDetails.Name = "buttonPostShowMoreDetails";
+            this.buttonPostShowMoreDetails.Size = new System.Drawing.Size(123, 31);
+            this.buttonPostShowMoreDetails.TabIndex = 5;
+            this.buttonPostShowMoreDetails.Text = "Show More Details";
+            this.buttonPostShowMoreDetails.UseVisualStyleBackColor = true;
+            this.buttonPostShowMoreDetails.Click += new System.EventHandler(this.buttonPostShowMoreDetails_Click);
             // 
             // buttonDeletePost
             // 
@@ -361,7 +378,7 @@
             this.labelPreview.Name = "labelPreview";
             this.labelPreview.Size = new System.Drawing.Size(45, 13);
             this.labelPreview.TabIndex = 10;
-            this.labelPreview.Text = "Preview";
+            this.labelPreview.Text = "Preview (click on the photo)";
             // 
             // labelPhoto
             // 
@@ -408,12 +425,14 @@
             // pictureBoxPhoto
             // 
             this.pictureBoxPhoto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBoxPhoto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxPhoto.Location = new System.Drawing.Point(373, 34);
             this.pictureBoxPhoto.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxPhoto.Name = "pictureBoxPhoto";
             this.pictureBoxPhoto.Size = new System.Drawing.Size(290, 290);
             this.pictureBoxPhoto.TabIndex = 5;
             this.pictureBoxPhoto.TabStop = false;
+            this.pictureBoxPhoto.Click += new System.EventHandler(this.pictureBoxPhoto_Click);
             // 
             // listBoxPhoto
             // 
@@ -1275,5 +1294,6 @@
         private System.Windows.Forms.PictureBox pictureBoxTop1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxTopFriends;
+        private System.Windows.Forms.Button buttonPostShowMoreDetails;
     }
 }
