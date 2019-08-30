@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelCreditMessage = new System.Windows.Forms.Label();
@@ -119,29 +120,31 @@
             this.pictureBoxProfilePic = new System.Windows.Forms.PictureBox();
             this.buttonPostShowMoreDetails = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFacebookLogo)).BeginInit();
             this.panel2.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPosts.SuspendLayout();
             this.tabPhotos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).BeginInit();
             this.tabFriends.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriendPicture)).BeginInit();
             this.tabPageLikes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPages)).BeginInit();
             this.tabEvents.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCalendar)).BeginInit();
             this.tabTaggedPlaces.SuspendLayout();
             this.tabTopLikedPhotos.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.facebookUserBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPages)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriendPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop1)).BeginInit();
-            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCalendar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facebookUserBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFacebookLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -1022,12 +1025,11 @@
             // 
             // labelBirthdayInfo
             // 
-            this.labelBirthdayInfo.AutoSize = true;
-            this.labelBirthdayInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelBirthdayInfo.Location = new System.Drawing.Point(52, 270);
+            this.labelBirthdayInfo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.facebookUserBindingSource, "Birthday", true));
+            this.labelBirthdayInfo.Location = new System.Drawing.Point(72, 284);
             this.labelBirthdayInfo.Name = "labelBirthdayInfo";
-            this.labelBirthdayInfo.Size = new System.Drawing.Size(0, 15);
-            this.labelBirthdayInfo.TabIndex = 12;
+            this.labelBirthdayInfo.Size = new System.Drawing.Size(110, 15);
+            this.labelBirthdayInfo.TabIndex = 1;
             // 
             // labelGender
             // 
@@ -1051,21 +1053,23 @@
             // 
             // labelLocationInfo
             // 
-            this.labelLocationInfo.AutoSize = true;
-            this.labelLocationInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelLocationInfo.Location = new System.Drawing.Point(55, 250);
+            this.labelLocationInfo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.facebookUserBindingSource, "Location.Name", true));
+            this.labelLocationInfo.Location = new System.Drawing.Point(72, 238);
             this.labelLocationInfo.Name = "labelLocationInfo";
-            this.labelLocationInfo.Size = new System.Drawing.Size(0, 15);
-            this.labelLocationInfo.TabIndex = 7;
+            this.labelLocationInfo.Size = new System.Drawing.Size(110, 15);
+            this.labelLocationInfo.TabIndex = 13;
+            // 
+            // facebookUserBindingSource
+            // 
+            this.facebookUserBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
             // 
             // labelEmailInfo
             // 
-            this.labelEmailInfo.AutoSize = true;
-            this.labelEmailInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelEmailInfo.Location = new System.Drawing.Point(41, 230);
+            this.labelEmailInfo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.facebookUserBindingSource, "Email", true));
+            this.labelEmailInfo.Location = new System.Drawing.Point(72, 261);
             this.labelEmailInfo.Name = "labelEmailInfo";
-            this.labelEmailInfo.Size = new System.Drawing.Size(0, 15);
-            this.labelEmailInfo.TabIndex = 6;
+            this.labelEmailInfo.Size = new System.Drawing.Size(110, 15);
+            this.labelEmailInfo.TabIndex = 3;
             // 
             // labelLocation
             // 
@@ -1089,12 +1093,11 @@
             // 
             // labelLastNameInfo
             // 
-            this.labelLastNameInfo.AutoSize = true;
-            this.labelLastNameInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelLastNameInfo.Location = new System.Drawing.Point(70, 210);
+            this.labelLastNameInfo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.facebookUserBindingSource, "LastName", true));
+            this.labelLastNameInfo.Location = new System.Drawing.Point(72, 217);
             this.labelLastNameInfo.Name = "labelLastNameInfo";
-            this.labelLastNameInfo.Size = new System.Drawing.Size(0, 15);
-            this.labelLastNameInfo.TabIndex = 3;
+            this.labelLastNameInfo.Size = new System.Drawing.Size(110, 15);
+            this.labelLastNameInfo.TabIndex = 9;
             // 
             // labelLastName
             // 
@@ -1108,12 +1111,11 @@
             // 
             // labelFirstNameInfo
             // 
-            this.labelFirstNameInfo.AutoSize = true;
-            this.labelFirstNameInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelFirstNameInfo.Location = new System.Drawing.Point(70, 190);
+            this.labelFirstNameInfo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.facebookUserBindingSource, "FirstName", true));
+            this.labelFirstNameInfo.Location = new System.Drawing.Point(72, 195);
             this.labelFirstNameInfo.Name = "labelFirstNameInfo";
-            this.labelFirstNameInfo.Size = new System.Drawing.Size(0, 15);
-            this.labelFirstNameInfo.TabIndex = 1;
+            this.labelFirstNameInfo.Size = new System.Drawing.Size(110, 15);
+            this.labelFirstNameInfo.TabIndex = 5;
             // 
             // labelFirstName
             // 
@@ -1171,23 +1173,18 @@
             this.Shown += new System.EventHandler(this.mainForm_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFacebookLogo)).EndInit();
             this.panel2.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPosts.ResumeLayout(false);
             this.tabPosts.PerformLayout();
             this.tabPhotos.ResumeLayout(false);
-            this.tabPhotos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).EndInit();
+            this.tabPhotos.PerformLayout();           
             this.tabFriends.ResumeLayout(false);
             this.tabFriends.PerformLayout();
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriendPicture)).EndInit();
-            this.tabPageLikes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPages)).EndInit();
+            this.panel3.PerformLayout();        
+            this.tabPageLikes.ResumeLayout(false);      
             this.tabEvents.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCalendar)).EndInit();
             this.tabTaggedPlaces.ResumeLayout(false);
             this.tabTaggedPlaces.PerformLayout();
             this.tabTopLikedPhotos.ResumeLayout(false);
@@ -1198,10 +1195,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFacebookLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCalendar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facebookUserBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPages)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriendPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).EndInit();
+            this.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePic)).EndInit();
-            this.ResumeLayout(false);
 
         }
 
@@ -1295,5 +1298,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxTopFriends;
         private System.Windows.Forms.Button buttonPostShowMoreDetails;
+        private System.Windows.Forms.BindingSource facebookUserBindingSource;
     }
 }

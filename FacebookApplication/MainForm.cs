@@ -162,22 +162,12 @@ namespace FacebookApplication
 
         private void loadAbout()
         {
-            this.labelFirstNameInfo.Text = m_FacebookUser.FirstName;
-            this.labelLastNameInfo.Text = m_FacebookUser.LastName;
-            this.labelEmailInfo.Text = m_FacebookUser.Email == null ? "Not available" : m_FacebookUser.Email;
-            this.labelLocationInfo.Text = m_FacebookUser.Location == null ? "Not available" : m_FacebookUser.Location.Name;
-            this.labelGenderInfo.Text = m_FacebookUser.Gender == User.eGender.female ? "Female" : "Male";
-            this.labelBirthdayInfo.Text = m_FacebookUser.Birthday == null ? "Not available" : m_FacebookUser.Birthday;
+            facebookUserBindingSource.DataSource = m_FacebookUser;
         }
 
         private void clearAbout()
         {
-            this.labelFirstNameInfo.Text = string.Empty;
-            this.labelLastNameInfo.Text = string.Empty;
-            this.labelEmailInfo.Text = string.Empty;
-            this.labelLocationInfo.Text = string.Empty;
-            this.labelGenderInfo.Text = string.Empty;
-            this.labelBirthdayInfo.Text = string.Empty;
+           facebookUserBindingSource.Clear();
         }
 
         private void loadMyPosts()
