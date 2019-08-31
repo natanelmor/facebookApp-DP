@@ -6,23 +6,44 @@ using System.Text;
 using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 
 namespace FacebookApplication
 {
-    public partial class MainForm : Form
+    public sealed partial class MainForm : Form
     {
+        private static MainForm s_Instance = null;
+        private static object s_LockObj = new Object();
         private User m_FacebookUser;
         private Settings m_Settings;
+        private MyPlaces m_MyPlaces;
 
         private Dictionary<User, int> m_TopLikedFriends;
 
-        public MainForm()
+        private MainForm()
         {
             InitializeComponent();
+        }
+
+        public static MainForm Instance
+        {
+            get
+            {
+                if (s_Instance == null)
+                {
+                    lock(s_LockObj)
+                    {
+                        if (s_Instance == null)
+                        {
+                            s_Instance = new MainForm();
+                        }
+                    }
+                }
+
+                return s_Instance;
+            }
         }
 
         private void mainForm_Shown(object sender, EventArgs e)
@@ -116,7 +137,10 @@ namespace FacebookApplication
             clearTopLikedPhotos();
 
             makeButtonsEnabled(false);
-            reInitializeMap();
+            if (m_MyPlaces != null)
+            {
+                m_MyPlaces.ClearMap();
+            }
         }
 
         private void makeButtonsEnabled(bool i_IsButtonEnabled)
@@ -354,62 +378,6 @@ namespace FacebookApplication
             }
         }
 
-
-        private void buildMap()
-        {
-
-            GMapOverlay markersOverlay = new GMapOverlay("markers");
-            GMap.NET.WindowsForms.Markers.GMarkerGoogle marker;
-
-            if (checkBoxcheckins.Checked == true)
-            {
-                foreach (Checkin checkin in m_FacebookUser.Checkins)
-                {
-                    marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(new PointLatLng(
-                        checkin.Place.Location.Latitude.Value, checkin.Place.Location.Longitude.Value),
-                        GMap.NET.WindowsForms.Markers.GMarkerGoogleType.green_pushpin);
-                    marker.ToolTipText = checkin.Name;
-                    markersOverlay.Markers.Add(marker);
-                }
-            }
-
-            if (checkBoxTagedPlaces.Checked == true)
-            {
-                foreach (Photo photo in m_FacebookUser.PhotosTaggedIn)
-                {
-                    if (photo.Place != null)
-                    {
-                        marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(new PointLatLng(
-                        photo.Place.Location.Latitude.Value, photo.Place.Location.Longitude.Value),
-                        GMap.NET.WindowsForms.Markers.GMarkerGoogleType.blue_pushpin);
-                        marker.ToolTipText = photo.Name;
-                        markersOverlay.Markers.Add(marker);
-                    }
-                }
-            }
-
-            if (checkBoxCurrentLocation.Checked == true)
-            {
-                if (m_FacebookUser.Location.Location != null)
-                {
-                    marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(new PointLatLng(
-                    m_FacebookUser.Location.Location.Latitude.Value, m_FacebookUser.Location.Location.Longitude.Value),
-                    GMap.NET.WindowsForms.Markers.GMarkerGoogleType.pink_pushpin);
-                    marker.ToolTipText = "My current location";
-                    markersOverlay.Markers.Add(marker);
-                }
-            }
-            map.Overlays.Add(markersOverlay);
-        }
-
-        private void reInitializeMap()
-        {
-            foreach (GMapOverlay overlay in map.Overlays)
-            {
-                overlay.Clear();
-            }
-        }
-
         private void insretTop6Photo(List<Photo> i_Photos)
         {
             try
@@ -542,23 +510,6 @@ namespace FacebookApplication
             loadEvents();
         }
 
-        private void buttonTaggedPlaces_Click(object sender, EventArgs e)
-        {
-            buildMap();
-        }
-
-        private void Map_Load(object sender, EventArgs e)
-        {
-            map.MapProvider = GMapProviders.GoogleMap;
-            map.Position = new PointLatLng(32.046440, 34.759790);
-            map.Zoom = 10;
-        }
-
-        private void ButtonClearMyPlaces_Click(object sender, EventArgs e)
-        {
-            reInitializeMap();
-        }
-
         private void buttonGetTop_Click(object sender, EventArgs e)
         {
             topLikedPhotos();
@@ -665,5 +616,45 @@ namespace FacebookApplication
             }
 
         }
+
+
+        private void Map_Load(object sender, EventArgs e)
+        {
+            map.MapProvider = GMapProviders.GoogleMap;
+            map.Position = new PointLatLng(32.046440, 34.759790);
+            map.Zoom = 10;
+        }
+ 
+        private void buttonTaggedPlaces_Click(object sender, EventArgs e)
+        {
+            FacebookObjectCollection<Checkin> checkins = null;
+            FacebookObjectCollection<Photo> photosTaggedIn = null;
+            FacebookWrapper.ObjectModel.Location currLocation = null;
+            if (checkBoxcheckins.Checked == true)
+            {
+                checkins = m_FacebookUser.Checkins;
+            }
+
+            if (checkBoxTagedPlaces.Checked == true)
+            {
+                photosTaggedIn = m_FacebookUser.PhotosTaggedIn;
+            }
+
+            if (checkBoxCurrentLocation.Checked == true)
+            {
+                currLocation = m_FacebookUser.Location.Location;
+            }
+
+
+        }
+
+        private void ButtonClearMyPlaces_Click(object sender, EventArgs e)
+        {
+            if (m_MyPlaces != null)
+            {
+                m_MyPlaces.ClearMap();
+            }
+        }
+
     }
 }

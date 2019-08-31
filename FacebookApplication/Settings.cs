@@ -29,8 +29,9 @@ namespace FacebookApplication
 
             try
             {
-                using (Stream stream = new FileStream(@"C:\temp\FacebookSettings.xml", FileMode.Open))
+                using (Stream stream = new FileStream(@".\FacebookSettings.xml", FileMode.Open))
                 {
+                    Console.WriteLine(" load successful");
                     XmlSerializer serializer = new XmlSerializer(typeof(Settings));
 
                     savedSettings = serializer.Deserialize(stream) as Settings;
@@ -38,6 +39,7 @@ namespace FacebookApplication
             }
             catch (Exception)
             {
+                Console.WriteLine(" didnt load");
                 savedSettings = new Settings();
             }
 
@@ -46,12 +48,14 @@ namespace FacebookApplication
 
         public void SaveToFile()
         {
-            if (File.Exists(@"C:\temp\FacebookSettings.xml"))
+            if (File.Exists(@".\FacebookSettings.xml"))
             {
+                Console.WriteLine("  exists");
                 createXMLFile(FileMode.Truncate);
             }
             else
             {
+                Console.WriteLine(" didnt exists");
                 createXMLFile(FileMode.Create);
             }
         }
