@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WindowSize>
+    <Width>1048</Width>
+    <Height>402</Height>
+  </WindowSize>
+  <WindowLocation>
+    <X>104</X>
+    <Y>104</Y>
+  </WindowLocation>
+  <AccessToken>EAAREYZCwsa9sBAMsptjb6TGmrffpHH57YiNFRN45e3zhI6dFN6JxRt8Py6BRDk1lKKMSCZCor4ZCONKuN9ZCyJv64cImgIJZARtwZC4dHnw2xZCsxbVyN1KVU5gRWEOSYe4dT7VjFmymqCOqOB2eiMzi9IDDh8aI3YZCfZCoEjOZCPrAZDZD</AccessToken>
+  <RememberMe>true</RememberMe>
+</Settings>
