@@ -790,7 +790,7 @@
             this.buttonClearMyPlaces.TabIndex = 7;
             this.buttonClearMyPlaces.Text = "Clear My Places";
             this.buttonClearMyPlaces.UseVisualStyleBackColor = true;
-            this.buttonClearMyPlaces.Click += new System.EventHandler(this.ButtonClearMyPlaces_Click);
+            this.buttonClearMyPlaces.Click += new System.EventHandler(this.buttonClearMyPlaces_Click);
             // 
             // map
             // 

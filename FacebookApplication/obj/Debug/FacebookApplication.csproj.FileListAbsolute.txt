@@ -76,3 +76,6 @@ C:\GIT\facebookApp-DP\FacebookApplication\obj\Debug\FacebookApplication.csproj.G
 C:\GIT\facebookApp-DP\FacebookApplication\obj\Debug\FacebookApplication.SubFormPhotoUpload.resources
 C:\GIT\facebookApp-DP\FacebookApplication\obj\Debug\FacebookApplication.SubFormPhotoPreview.resources
 C:\GIT\facebookApp-DP\FacebookApplication\obj\Debug\FacebookApplication.SubFormPostPreview.resources
+C:\Users\natanelmo\Documents\facebookApp\facebookApp-DP\FacebookApplication\obj\Debug\FacebookApplication.SubFormPhotoPreview.resources
+C:\Users\natanelmo\Documents\facebookApp\facebookApp-DP\FacebookApplication\obj\Debug\FacebookApplication.SubFormPhotoUpload.resources
+C:\Users\natanelmo\Documents\facebookApp\facebookApp-DP\FacebookApplication\obj\Debug\FacebookApplication.SubFormPostPreview.resources

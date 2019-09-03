@@ -12,8 +12,7 @@ namespace FacebookApplication
 {
     internal class MyPlaces
     {
-        private bool m_MapDisplyed;
-        private FacebookObjectCollection<Post> m_Posts;
+        private bool m_MapDisplayed;
         private GMapControl m_Map;
         private FacebookObjectCollection<Checkin> m_checkins;
         private FacebookObjectCollection<Photo> m_photosTaggedIn;
@@ -25,7 +24,7 @@ namespace FacebookApplication
                           FacebookWrapper.ObjectModel.Location i_currLocation)
         {
 
-            m_MapDisplyed = false;
+            m_MapDisplayed = false;
             m_Map = i_Map;
             m_checkins = i_checkins;
             m_photosTaggedIn = i_photosTaggedIn;
@@ -37,12 +36,12 @@ namespace FacebookApplication
         {
             get
             {
-                return m_MapDisplyed;
+                return m_MapDisplayed;
             }
 
             set
             {
-                m_MapDisplyed = value;
+                m_MapDisplayed = value;
             }
         }
 
@@ -61,18 +60,18 @@ namespace FacebookApplication
 
         internal void ShowMyPlaces()
         {
-            if (m_MapDisplyed)
+            if (m_MapDisplayed)
             {
-                //throw new GraphAlreadyInitializedException("Map has already been initialized. Please clean it.");
+                throw new MapAlreadyInitializedException("Map has already been initialized. Please clean it.");
             }
             else
             {
                 BuildMap();
-                m_MapDisplyed = true;
+                m_MapDisplayed = true;
             }
         }
 
-        internal void BuildMap()
+        private void BuildMap()
         {
             GMapOverlay markersOverlay = new GMapOverlay("markers");
             GMap.NET.WindowsForms.Markers.GMarkerGoogle marker;
@@ -122,6 +121,8 @@ namespace FacebookApplication
             {
                 overlay.Clear();
             }
+
+            m_MapDisplayed = false;
         }
 
     }

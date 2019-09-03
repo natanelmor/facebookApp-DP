@@ -214,6 +214,13 @@ namespace FacebookApplication
             }
         }
 
+        private void Map_Load(object sender, EventArgs e)
+        {
+            map.MapProvider = GMapProviders.GoogleMap;
+            map.Position = new PointLatLng(32.046440, 34.759790);
+            map.Zoom = 10;
+        }
+
         private void sharePost()
         {
             try
@@ -612,20 +619,13 @@ namespace FacebookApplication
             }
 
         }
-
-
-        private void Map_Load(object sender, EventArgs e)
-        {
-            map.MapProvider = GMapProviders.GoogleMap;
-            map.Position = new PointLatLng(32.046440, 34.759790);
-            map.Zoom = 10;
-        }
  
         private void buttonTaggedPlaces_Click(object sender, EventArgs e)
         {
             FacebookObjectCollection<Checkin> checkins = null;
             FacebookObjectCollection<Photo> photosTaggedIn = null;
             FacebookWrapper.ObjectModel.Location currLocation = null;
+
             if (checkBoxcheckins.Checked == true)
             {
                 checkins = m_FacebookUser.Checkins;
@@ -641,10 +641,22 @@ namespace FacebookApplication
                 currLocation = m_FacebookUser.Location.Location;
             }
 
+            if (m_MyPlaces == null)
+            {
+                m_MyPlaces = new MyPlaces(this.map, checkins, photosTaggedIn, currLocation);
+            }
 
+            try
+            {
+                m_MyPlaces.ShowMyPlaces();
+            }
+            catch (MapAlreadyInitializedException exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
 
-        private void ButtonClearMyPlaces_Click(object sender, EventArgs e)
+        private void buttonClearMyPlaces_Click(object sender, EventArgs e)
         {
             if (m_MyPlaces != null)
             {
