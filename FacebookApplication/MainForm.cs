@@ -548,7 +548,21 @@ namespace FacebookApplication
             FacebookObjectCollection<Checkin> checkins = null;
             FacebookObjectCollection<Photo> photosTaggedIn = null;
             FacebookWrapper.ObjectModel.Location currLocation = null;
+            IPlacePicker placePicker = new PlacePickerAll();
 
+            if ((string)SelectPlacesFrom.SelectedItem == "Jerusalem")
+            {
+                placePicker = new PlacePickerFromJerusalem();
+            }
+            else if ((string)SelectPlacesFrom.SelectedItem == "Tel Aviv")
+            {
+                placePicker = new PlacePickerFromTelAviv();
+            }
+            else if ((string)SelectPlacesFrom.SelectedItem == "Israel")
+            {
+                placePicker = new PlacePickerFromIsrael();
+            }
+            
             if (checkBoxcheckins.Checked == true)
             {
                 checkins = m_FacebookUser.Checkins;
@@ -566,7 +580,8 @@ namespace FacebookApplication
 
             if (m_MyPlaces == null)
             {
-                m_MyPlaces = new MyPlaces(this.map, checkins, photosTaggedIn, currLocation);
+
+                m_MyPlaces = new MyPlaces(this.map, checkins, photosTaggedIn, currLocation, placePicker);
             }
 
             try
@@ -660,5 +675,6 @@ namespace FacebookApplication
                 startPhotoPreviewFormThread(listBoxPhoto.SelectedItem as Photo);
             }
         }
+
     }
 }
