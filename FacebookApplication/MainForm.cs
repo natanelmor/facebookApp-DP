@@ -31,6 +31,7 @@ namespace FacebookApplication
         private MainForm()
         {
             InitializeComponent();
+            addObserversToNotifiers();
             m_SubFormPhotoPreview = SubFormFactory.CreateForm(SubFormFactory.eSubFormTypes.PhotoPreview) as SubFormPhotoPreview;
             m_SubFormPostPreview = SubFormFactory.CreateForm(SubFormFactory.eSubFormTypes.PostPreview) as SubFormPostPreview;
             m_SubFormPhotoUpload = SubFormFactory.CreateForm(SubFormFactory.eSubFormTypes.PhotoUpload) as SubFormPhotoUpload;
@@ -83,6 +84,7 @@ namespace FacebookApplication
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+            buttonLoginLogout.Notify();
             LoginResult result = FacebookService.Login(
             "1201096130063323",
             "email",
@@ -125,6 +127,7 @@ namespace FacebookApplication
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
+            buttonLoginLogout.Notify();
             FacebookService.Logout(logout_Operations);
         }
 
@@ -166,14 +169,29 @@ namespace FacebookApplication
             buttonPostShowMoreDetails.Enabled = i_IsButtonEnabled;
             buttonShowMyPlaces.Enabled = i_IsButtonEnabled;
             buttonClearMyPlaces.Enabled = i_IsButtonEnabled;
-            buttonShowMyPlaces.Enabled = i_IsButtonEnabled;
             checkBoxcheckins.Enabled = i_IsButtonEnabled;
             checkBoxTagedPlaces.Enabled = i_IsButtonEnabled;
             checkBoxCurrentLocation.Enabled = i_IsButtonEnabled;
-
-
             buttonGetTop.Enabled = i_IsButtonEnabled;
 
+        }
+
+        private void addObserversToNotifiers()
+        {
+            buttonLoginLogout.Attach(this.lastClickLabel);
+            buttonRefreshAlbums.Attach(this.lastClickLabel);
+            buttonShareMyPost.Attach(this.lastClickLabel);
+            buttonRefreshPosts.Attach(this.lastClickLabel);
+            buttonLoadEvents.Attach(this.lastClickLabel);
+            buttonRefreshFriends.Attach(this.lastClickLabel);
+            buttonRefreshPages.Attach(this.lastClickLabel);
+            buttonCreateAlbum.Attach(this.lastClickLabel);
+            buttonDeletePost.Attach(this.lastClickLabel);
+            buttonUploadPhoto.Attach(this.lastClickLabel);
+            buttonPostShowMoreDetails.Attach(this.lastClickLabel);
+            buttonShowMyPlaces.Attach(this.lastClickLabel);
+            buttonClearMyPlaces.Attach(this.lastClickLabel);
+            buttonGetTop.Attach(this.lastClickLabel);
         }
 
         private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
@@ -379,21 +397,25 @@ namespace FacebookApplication
 
         private void buttonRefreshPosts_Click(object sender, EventArgs e)
         {
+            buttonRefreshPosts.Notify();
             loadMyPosts();
         }
 
         private void buttonShareMyPost_Click(object sender, EventArgs e)
         {
+            buttonShareMyPost.Notify();
             sharePost();
         }
 
         private void buttonDeletePost_Click(object sender, EventArgs e)
         {
+            buttonDeletePost.Notify();
             deletePost();
         }
 
         private void buttonRefreshAlbums_Click(object sender, EventArgs e)
         {
+            buttonRefreshAlbums.Notify();
             loadAlbums();
         }
 
@@ -420,11 +442,13 @@ namespace FacebookApplication
 
         private void buttonCreateAlbum_Click(object sender, EventArgs e)
         {
+            buttonCreateAlbum.Notify();
             createAlbum();
         }
 
         private void buttonUploadPhoto_Click(object sender, EventArgs e)
         {
+            buttonUploadPhoto.Notify();
             if (listBoxAlbums.SelectedItem != null)
             {
                 startPhotoUploadFormThread(listBoxAlbums.SelectedItem as Album);
@@ -433,6 +457,7 @@ namespace FacebookApplication
 
         private void buttonRefreshFriends_Click(object sender, EventArgs e)
         {
+            buttonRefreshFriends.Notify();
             loadFriends();
         }
 
@@ -453,16 +478,19 @@ namespace FacebookApplication
 
         private void buttonLoadPages_Click(object sender, EventArgs e)
         {
+            buttonRefreshPages.Notify();
             loadPages();
         }
 
         private void buttonLoadEvents_Click(object sender, EventArgs e)
         {
+            buttonLoadEvents.Notify();
             loadEvents();
         }
 
         private void buttonGetTop_Click(object sender, EventArgs e)
         {
+            buttonGetTop.Notify();
             topLikedPhotos();
         }
 
@@ -545,6 +573,7 @@ namespace FacebookApplication
 
         private void buttonTaggedPlaces_Click(object sender, EventArgs e)
         {
+            buttonShowMyPlaces.Notify();
             FacebookObjectCollection<Checkin> checkins = null;
             FacebookObjectCollection<Photo> photosTaggedIn = null;
             FacebookWrapper.ObjectModel.Location currLocation = null;
@@ -596,6 +625,7 @@ namespace FacebookApplication
 
         private void buttonClearMyPlaces_Click(object sender, EventArgs e)
         {
+            buttonClearMyPlaces.Notify();
             if (m_MyPlaces != null)
             {
                 m_MyPlaces.ClearMap();
@@ -662,6 +692,7 @@ namespace FacebookApplication
 
         private void buttonPostShowMoreDetails_Click(object sender, EventArgs e)
         {
+            buttonPostShowMoreDetails.Notify();
             if (listBoxMyPosts.SelectedItem != null)
             {
                 startPostPreviewFormThread(listBoxMyPosts.SelectedItem as Post);
@@ -675,6 +706,5 @@ namespace FacebookApplication
                 startPhotoPreviewFormThread(listBoxPhoto.SelectedItem as Photo);
             }
         }
-
     }
 }

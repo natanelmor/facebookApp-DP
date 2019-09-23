@@ -14,7 +14,6 @@ namespace FacebookApplication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Console.WriteLine("checkkk");
             Application.Run(MainForm.Instance);
             
         }
